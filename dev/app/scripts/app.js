@@ -1,10 +1,11 @@
 'use strict';
 var app= angular.module('picoTumblr', ['ngRoute', 'ngAnimate','angularSpinner']);
 
+// ROUTES °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 app.config(function ($routeProvider) {
    $routeProvider
    .when('/a', {
-      templateUrl:'views/a.html',
+      templateUrl:'views/home.html',
       currentView: 'viewA'
    })
    .when('/b', {
@@ -19,7 +20,7 @@ app.config(function ($routeProvider) {
       redirectTo:'/a'
    });
 });
-
+// DIRECTIVES °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 app.directive('pageAnimation', function($animate) {
    return {
       restrict: 'A',
@@ -30,24 +31,32 @@ app.directive('pageAnimation', function($animate) {
       }
    }  
 });
-
-app.factory('dataService', ['$rootScope', function ($rootScope) {
-   var service = {
-      isHome : 'Yeah'
-        // SaveState: function () {
-        //             sessionStorage.userService = angular.toJson(service.model);
-        //         },
-        //         RestoreState: function () {
-        //             service.model = angular.fromJson(sessionStorage.userService);
-        //         }
+// SERVICES °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+app.factory('TumblrData', ['$http', function ($http) {
+   var data = {
+      title : 'FuckYeahTumblr',
+      remoteUrl: 'http://api.tumblr.com/v2/blog/scipsy.tumblr.com/info?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4&callback=JSON_CALLBACK',
+      isLoading : false,
+      async: function() {
+         data.isLoading = true; // show spinner
+         var promise = $http.jsonp(data.remoteUrl)
+         .then(function (r) {
+            data.isLoading = false;
+            return r.data.response;            
+         });
+         return promise;
+      }
    }
-    // $rootScope.$on("savestate", service.SaveState);
-    //     $rootScope.$on("restorestate", service.RestoreState);
-    return service;
+   return data;
 }]);
 
-app.controller('MainCtrl', ['$scope', '$rootScope', '$route', '$routeParams', function ($scope, $rootScope, $route, $routeParams) { 
-   $scope.loading = false;   
+// CONTROLLERS °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+app.controller('MainCtrl', ['$scope', '$route', '$routeParams', 'TumblrData', function ($scope, $route, $routeParams, TumblrData) { 
+   $scope.data = TumblrData;      
+   // Call the async method and then do stuff with what is returned inside our own then function
+   TumblrData.async().then(function(resp) {
+      $scope.remote = resp;     
+   });
    $scope.$on(
       "$routeChangeSuccess",
       function( $currentRoute, $previousRoute ){ 
@@ -55,7 +64,6 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$route', '$routeParams', fu
       }
    );
 }]);
-
-app.controller('HomeCtrl', ['$scope', 'dataService', function ($scope, dataService) {    
-   $scope.test=dataService;   
+app.controller('HomeCtrl', ['$scope', 'TumblrData', function ($scope, TumblrData) {    
+   $scope.tumblr = TumblrData;
 }]);

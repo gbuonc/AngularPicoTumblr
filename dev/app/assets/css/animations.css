@@ -6,57 +6,57 @@
 .ng-leave-active{z-index: -1;}
 
 /*7*/
-.fromBottom .ng-enter{
+.fromBottom .pt-page.ng-enter{
    -webkit-animation: moveFromBottom .6s ease both;
 	-moz-animation: moveFromBottom .6s ease both;
 	animation: moveFromBottom .6s ease both;
 }
-.fromBottom .ng-leave{
+.fromBottom .pt-page.ng-leave{
    -webkit-animation: fade .7s ease both;
 	-moz-animation: fade .7s ease both;
 	animation: fade .7s ease both;
 }
 /*8*/
-.fromTop .ng-enter{
+.fromTop .pt-page.ng-enter{
    -webkit-animation: moveFromTop .6s ease both;
 	-moz-animation: moveFromTop .6s ease both;
 	animation: moveFromTop .6s ease both;
 }
-.fromTop .ng-leave{
+.fromTop .pt-page.ng-leave{
    -webkit-animation: fade .7s ease both;
 	-moz-animation: fade .7s ease both;
 	animation: fade .7s ease both;
 }
 /* 13*/
-.fromRight .ng-enter{
+.fromRight .pt-page.ng-enter{
    -webkit-animation: moveFromRight .6s ease both;
 	-moz-animation: moveFromRight .6s ease both;
 	animation: moveFromRight .6s ease both;
 }
-.fromRight .ng-leave{
+.fromRight .pt-page.ng-leave{
    -webkit-animation: moveToLeft .7s ease-in-out both;
 	-moz-animation: moveToLeft .7s ease-in-out both;
 	animation: moveToLeft .7s ease-in-out both;
 }
 /* 14*/
-.fromLeft .ng-enter{
+.fromLeft .pt-page.ng-enter{
    -webkit-animation: moveFromLeft .6s ease both;
 	-moz-animation: moveFromLeft .6s ease both;
 	animation: moveFromLeft .6s ease both;
 
 }
-.fromLeft .ng-leave{
+.fromLeft .pt-page.ng-leave{
       -webkit-animation: moveToRight .7s ease-in-out both;
 	-moz-animation: moveToRight .7s ease-in-out both;
 	animation: moveToRight .7s ease-in-out both;
 }
 /*21*/
-.scaleDown .ng-enter{
+.scaleDown .pt-page.ng-enter{
    -webkit-animation: scaleUpDown .5s ease both;
 	-moz-animation: scaleUpDown .5s ease both;
 	animation: scaleUpDown .5s ease both;
 }
-.scaleDown .ng-leave{
+.scaleDown .pt-page.ng-leave{
    -webkit-animation: scaleDown .7s ease both;
 	-moz-animation: scaleDown .7s ease both;
 	animation: scaleDown .7s ease both;
@@ -65,12 +65,12 @@
    animation-delay: .3s;
 }
 /*22*/
-.scaleUp .ng-enter{
+.scaleUp .pt-page.ng-enter{
    -webkit-animation: scaleUp .7s ease both;
 	-moz-animation: scaleUp .7s ease both;
 	animation: scaleUp .7s ease both;
 }
-.scaleUp .ng-leave{
+.scaleUp .pt-page.ng-leave{
    -webkit-animation: scaleDownUp .5s ease both;
 	-moz-animation: scaleDownUp .5s ease both;
 	animation: scaleDownUp .5s ease both;   
