@@ -11,29 +11,36 @@
       <link rel="stylesheet" href="assets/css/topcoat-mobile-dark.css">  
       <link rel="stylesheet" href="assets/css/main.css">
       <link rel="stylesheet" href="assets/css/animations.css">         
-      <!-- build:js scripts/scripts.js -->            
+      <!-- build:js scripts/scripts.js -->        
+      <!-- modules -->    
       <script src="http://code.angularjs.org/1.2.0-rc.2/angular.min.js"></script>
       <script src="http://code.angularjs.org/1.2.0-rc.2/angular-route.min.js"></script>
-      <script src="http://code.angularjs.org/1.2.0-rc.2/angular-animate.min.js"></script>   
-      <script src="scripts/vendor/spin.js"></script>
-      <script src="scripts/directives/angular-spinner.js"></script>      
+      <script src="http://code.angularjs.org/1.2.0-rc.2/angular-animate.min.js"></script>  
+      <script src="http://code.angularjs.org/1.2.0-rc.2/angular-sanitize.min.js"></script> 
+      <!-- app -->
       <script src="scripts/app.js"></script>
+      <!-- vendors -->
+      <script src="scripts/vendors/spin.js"></script>     
+      <!-- services -->
+      <script src="scripts/services/tumblr.js"></script>
+      <!-- directives -->
+      <script src="scripts/directives/spinner.js"></script>      
+      <script src="scripts/directives/page-animation.js"></script>
       <!-- endbuild -->   
    </head>
    <body ng-app="picoTumblr" ng-controller="MainCtrl">      
       <div class="main-app pt-perspective {{pageAnimation}}">      
          <ng-view class="pt-page"></ng-view>
-         <div class="spinner" ng-spinner="{color:'#fff'}" ng-if="data.isLoading"></div>
+         <div class="spinner" ng-spinner="{color:'#fff'}" ng-if="tumblr.isLoading"></div>
       </div>                
       <div class="testBar">
-         <a ng-class="{on: currentView=='viewA'}" href="#/a" page-animation="fromBottom">Route A from bottom</a> |
-         <a ng-class="{on: currentView=='viewB'}" href="#/b" page-animation="fromTop">Route B from top</a> |
+         <a ng-class="{on: currentView=='home'}" href="#/home" page-animation="fromBottom">Route A from bottom</a> |
+         <a ng-class="{on: currentView=='list'}" href="#/b" page-animation="fromTop">Route B from top</a> |
          <a ng-class="{on: currentView=='viewC'}" href="#/c" page-animation="fromLeft">Route C from left</a> |
-         <a ng-class="{on: currentView=='viewA'}" href="#/a" page-animation="fromRight">Route A from right</a> |
-         <a ng-class="{on: currentView=='viewB'}" href="#/b" page-animation="scaleDown">Route B scale down</a> |
+         <a ng-class="{on: currentView=='home'}" href="#/home" page-animation="fromRight">Route A from right</a> |
+         <a ng-class="{on: currentView=='list'}" href="#/b" page-animation="scaleDown">Route B scale down</a> |
          <a ng-class="{on: currentView=='viewC'}" href="#/c" page-animation="scaleUp">Route C scale up</a> |
-         <input type="checkbox" ng-model="data.isLoading" /> {{data.isLoading?'hide':'show'}} Spinner
+         <input type="checkbox" ng-model="tumblr.isLoading" /> {{tumblr.isLoading?'hide':'show'}} Spinner
       </div>    
-      
    </body>
 </html>

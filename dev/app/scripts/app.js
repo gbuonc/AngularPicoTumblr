@@ -1,69 +1,74 @@
 'use strict';
-var app= angular.module('picoTumblr', ['ngRoute', 'ngAnimate','angularSpinner']);
+var app= angular.module('picoTumblr', ['ngRoute', 'ngAnimate', 'ngSanitize', 'angularSpinner']);
 
 // ROUTES °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 app.config(function ($routeProvider) {
    $routeProvider
-   .when('/a', {
+   .when('/home', {
       templateUrl:'views/home.html',
-      currentView: 'viewA'
+      currentView: 'home'
    })
-   .when('/b', {
-      templateUrl:'views/b.html',
-      currentView: 'viewB'
-   })
-   .when('/c', {
-      templateUrl:'views/c.html',
-      currentView: 'viewC'
-   })
+   .when('/:tumblrId', {
+      templateUrl:'views/list.html',
+      currentView: 'list'
+   })   
    .otherwise({
-      redirectTo:'/a'
+      redirectTo:'/home'
    });
 });
-// DIRECTIVES °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
-app.directive('pageAnimation', function($animate) {
-   return {
-      restrict: 'A',
-      link: function(scope, element, attrs){
-         element.bind('click', function() {
-            scope.pageAnimation = attrs.pageAnimation;                  
-         });      
-      }
-   }  
-});
-// SERVICES °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
-app.factory('TumblrData', ['$http', function ($http) {
-   var data = {
-      title : 'FuckYeahTumblr',
-      remoteUrl: 'http://api.tumblr.com/v2/blog/scipsy.tumblr.com/info?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4&callback=JSON_CALLBACK',
-      isLoading : false,
-      async: function() {
-         data.isLoading = true; // show spinner
-         var promise = $http.jsonp(data.remoteUrl)
-         .then(function (r) {
-            data.isLoading = false;
-            return r.data.response;            
-         });
-         return promise;
-      }
-   }
-   return data;
-}]);
 
 // CONTROLLERS °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
-app.controller('MainCtrl', ['$scope', '$route', '$routeParams', 'TumblrData', function ($scope, $route, $routeParams, TumblrData) { 
-   $scope.data = TumblrData;      
-   // Call the async method and then do stuff with what is returned inside our own then function
-   TumblrData.async().then(function(resp) {
-      $scope.remote = resp;     
-   });
+app.controller('MainCtrl', 
+['$scope', '$route', '$routeParams', '$timeout', '$location', 'TumblrService', 
+function ($scope, $route, $routeParams, $timeout, $location, TumblrService) { 
+   $scope.tumblr = TumblrService;  
    $scope.$on(
       "$routeChangeSuccess",
       function( $currentRoute, $previousRoute ){ 
-         $scope.currentView = $route.current.currentView;  
+         $scope.currentView = $route.current.currentView; 
+      } 
+   );     
+   // offline error 
+   $scope.$watch('tumblr.isOnline', function() {
+      if($scope.tumblr.isOnline && $scope.tumblr.isOnline==false){
+         $scope.tumblr.isLoading = false; 
+         $timeout(function(){
+            alert('No internet connection detected. Please try again later.');
+         }, 0); 
       }
-   );
+   });
+   // deal with errors retrieving Tumblr Data    
+   $scope.$watch('tumblr.status', function() {
+      $scope.tumblr.isLoading = false; 
+      if($scope.tumblr.status && $scope.tumblr.status!=200){
+         var errorMsgs = {
+            empty: 'Please enter a valid tumblr ID',  
+            404:'The site you entered doesn\'t exist.',
+            503:'Tumblr seems down at the moment. Please try again later.', 
+            noPictures: 'This tumblr doesn\'t contain pictures.',
+            generic:'An error occurred. Please try again later.'
+         }
+         $timeout(function(){
+            alert(errorMsgs[$scope.tumblr.status]);
+         }, 0);         
+      }
+   });
 }]);
-app.controller('HomeCtrl', ['$scope', 'TumblrData', function ($scope, TumblrData) {    
-   $scope.tumblr = TumblrData;
+
+/* home */
+app.controller('HomeCtrl', ['$scope', 'TumblrService', function ($scope, TumblrService) {    
+   $scope.tumblr = TumblrService;
+   console.log('HOME', $scope.tumblr);
+}]);
+
+/* list */
+app.controller('ListCtrl', ['$scope', '$route', '$routeParams', '$location', 'TumblrService',  function ($scope, $route, $routeParams, $location, TumblrService) {   
+   $scope.tumblr = TumblrService;
+   $scope.$on(
+      "$routeChangeSuccess",
+      function( $currentRoute, $previousRoute ){ 
+         $scope.tumblr.id = $routeParams.tumblrId;
+         $location.path('/'+$scope.tumblr.id);
+      } 
+   );   
 }]);

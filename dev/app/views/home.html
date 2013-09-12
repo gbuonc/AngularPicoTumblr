@@ -1,5 +1,7 @@
 <div class="view home" ng-controller="HomeCtrl">
-   <h1>Picotumblr {{tumblr.title}}</h1>   
-   <input type="text" name="fd" value="" ng-model="tumblr.title">
-   <p>{{remote.blog.description}}</p> 
+   <h1>Picotumblr</h1>   
+   <form ng-submit="tumblr.getData()">
+      <input type="text" name="siteId" value="" ng-model="tumblr.id">
+      <button>Go</button>   
+   </form>  
 </div>
