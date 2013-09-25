@@ -1,9 +1,7 @@
 <div class="view home" ng-controller="HomeCtrl">
    <h1>Picotumblr</h1>   
-   <form ng-submit="tumblr.getData()">
-      <input type="text" name="siteId" value="" ng-model="tumblr.id">
-      <button>Go</button>   
-   </form>  
+   <div ng-include="'views/includes/searchform.html'"></div>
+   
    <!-- <div class="history-list" ng-controller="HistoryCtrl">
       <span ng-repeat="historyItem in tumblr.history" style="transition-delay: {{$index * 300}}ms"><a href="#/{{historyItem.id}}" class="thumb-wrapper" ng-background="{{historyItem.avatar}}" >{{historyItem.title}}</span></span>   
       </div> -->
