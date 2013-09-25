@@ -22,6 +22,7 @@
   top: 0;
   left: 0;
   overflow: hidden;
+  background-color: #333;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -42,10 +43,6 @@
    padding: 20px;
 }
 
-.home { background: #0ac2d2;}
-.pt-page-b { background: #7bb7fa;}
-.pt-page-c { background: #60d7a9;}
-
 a.on{  color: red;}
 
 ng-view {
@@ -57,7 +54,7 @@ ng-view {
   bottom:0;
 }
 .testBar{
-   position: absolute;
+   position: fixed;
    bottom:0;
    left:0;
    right:0;
@@ -71,4 +68,57 @@ ng-view {
    top:0;   left:0;   bottom:0;   right:0;
    background: rgba(0,0,0,0);
    color: #fff;
+}
+
+
+/* THUMBS
+====================================================== */
+.thumbs-header{
+   position: absolute;
+   top:0;
+   left:0;
+   right:0;
+   height: 40px;
+   padding: 5px;
+   padding-left: 55px;
+   background-color: #000;
+   color: #fff;
+   border-bottom: 2px solid #fff;
+}
+.header-title{
+   font-size: 25px;
+   line-height: 25px;
+   margin: 0px;
+   display: inline-block;
+   border-bottom: 1px solid #ddd;
+}
+.header-avatar{
+   position: absolute;
+   height: 50px;
+   width: auto;
+   top:0;
+   left:0;
+}
+.header-info{
+   font-size: 14px;
+   color: #fff;
+}
+.header-form{
+   position: absolute;
+   top:10px;
+   right:5px;
+}
+.thumbs-grid{
+   position: absolute;
+   top:54px;
+   left:0px;
+   right:0px;
+   bottom:0px;
+}
+.thumb-wrapper{
+   float: left;
+   width: 20%;
+   height: 25%;
+   position: relative;
+   outline:2px solid #fff;
 }

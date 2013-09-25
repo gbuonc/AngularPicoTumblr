@@ -9,8 +9,8 @@ app.config(function ($routeProvider) {
       currentView: 'home'
    })
    .when('/:tumblrId', {
-      templateUrl:'views/list.html',
-      currentView: 'list'
+      templateUrl:'views/thumbs.html',
+      currentView: 'thumbs'
    })   
    .otherwise({
       redirectTo:'/home'
@@ -25,7 +25,7 @@ function ($scope, $route, $routeParams, $timeout, $location, TumblrService) {
    $scope.$on(
       "$routeChangeSuccess",
       function( $currentRoute, $previousRoute ){ 
-         $scope.currentView = $route.current.currentView; 
+         $scope.currentView = $route.current.currentView;          
       } 
    );     
    // offline error 
@@ -57,18 +57,39 @@ function ($scope, $route, $routeParams, $timeout, $location, TumblrService) {
 
 /* home */
 app.controller('HomeCtrl', ['$scope', 'TumblrService', function ($scope, TumblrService) {    
-   $scope.tumblr = TumblrService;
-   console.log('HOME', $scope.tumblr);
+   $scope.tumblr = TumblrService;   
 }]);
 
-/* list */
-app.controller('ListCtrl', ['$scope', '$route', '$routeParams', '$location', 'TumblrService',  function ($scope, $route, $routeParams, $location, TumblrService) {   
-   $scope.tumblr = TumblrService;
-   $scope.$on(
-      "$routeChangeSuccess",
-      function( $currentRoute, $previousRoute ){ 
-         $scope.tumblr.id = $routeParams.tumblrId;
-         $location.path('/'+$scope.tumblr.id);
-      } 
-   );   
+/* thumbs */
+app.controller('thumbsCtrl', ['$scope', '$route', '$routeParams', '$location', 'TumblrService', function ($scope, $route, $routeParams, $location, TumblrService) {   
+   $scope.tumblr.id = $routeParams.tumblrId;
+   $scope.tumblr = TumblrService;   
+   // get data if coming directly from adress bar
+   if($scope.tumblr.current.id != $scope.tumblr.id){
+      $scope.tumblr.current = {}; //empty current site
+      $scope.tumblr.getData();  
+   }     
+   // random fade in number
+   var delays = [];
+   $scope.random = function(i) {
+      if(!delays[i]) delays[i] = Math.random();
+      return delays[i];
+   };   
+   
+}]);
+
+/* history */
+app.controller('HistoryCtrl', ['$scope', 'TumblrService', function ($scope, TumblrService) {    
+   $scope.tumblr = TumblrService;   
+   // $scope.addToHistory = function(obj){
+   //       if(obj.id){
+   //          $scope.tumblr.history.push(obj);
+   //       }
+   //    }
+   //    var historyObj = {
+   //       id: $scope.tumblr.current.id,
+   //       title: $scope.tumblr.current.title,
+   //       avatar: $scope.tumblr.current.avatar
+   //    }  
+   //    if(historyObj) $scope.addToHistory(historyObj); 
 }]);

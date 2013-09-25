@@ -3,6 +3,15 @@
 	-moz-perspective: 1200px;
 	perspective: 1200px;
 }
+.thumb.ng-enter{
+  -webkit-transition: 0.5s linear all;
+  -moz-transition: 0.5s linear all;
+  -o-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+  position:relative;
+}
+.thumb.ng-enter{opacity:0}
+.thumb.ng-enter-active{opacity: 1;}
 .ng-leave-active{z-index: -1;}
 
 /*7*/
