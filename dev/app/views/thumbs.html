@@ -9,7 +9,7 @@
    <!-- grid -->
    <section class="thumbs-grid">
       <span ng-repeat="item in tumblr.current.pictures" class="thumb" style="transition-delay: {{random($index) * 300}}ms">
-         <span class="thumb-wrapper" ng-background="{{item.thumb}}" ng-click=""></span>         
+         <thumbnail ng-background="{{item.thumb}}" index="{{$index}}"></thumbnail>      
       </span>
    </section>
 </div>

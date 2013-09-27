@@ -52,3 +52,47 @@ app.directive('ngBackground', function(){
       });
    };
 });
+// input placeholder
+app.directive('placehold', function() {
+   return {
+      restrict: 'A',
+      require: 'ngModel',
+      link: function(scope, element, attr, ctrl) {   
+         var value;      
+         scope.$watch(attr.ngModel, function (val) {
+           value = val || '';
+         });
+         var placehold = function () {         
+            element.val(value || attr.placehold)
+         };
+         var unplacehold = function () {
+             element.val('');
+         };            
+         element.bind('focus', function () {
+            /* if(value == '') */ unplacehold();
+         });      
+         element.bind('blur', function () {
+            if (element.val() == '') placehold();
+         });      
+         ctrl.$formatters.unshift(function (val) {
+            if (!val) {
+               placehold();
+               value = '';
+               return attr.placehold;
+            }
+            return val;
+         });
+      }
+   };
+});
+// thumbnail in grid
+app.directive('thumbnail', function(){
+   return{
+      restrict: 'E',   
+      link: function(scope, element, attrs){
+         element.bind('click', function() {            
+            console.log(attrs.index);
+         });      
+      }      
+   };
+});

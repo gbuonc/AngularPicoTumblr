@@ -1,7 +1,7 @@
 /* Will be compiled down to a single stylesheet with your sass files */
 .main-app{
-   width: 1024px;
-   height: 768px;
+   width: 500px;
+   height: 500px;
    position: relative;
    border: 2px solid #fff;
    margin: 10px auto;
@@ -115,7 +115,7 @@ ng-view {
    right:0px;
    bottom:0px;
 }
-.thumb-wrapper{
+thumbnail, .thumb-wrapper{
    float: left;
    width: 20%;
    height: 25%;
