@@ -7,6 +7,8 @@ app.factory('TumblrService', ['$http', '$sce','$location',  function ($http, $sc
       tumblr.isOnline = true;   
    });     
    var tumblr = {  
+      ppp: 20,
+      buffer: 80,
       offset:0,
       isLoading : false,    
       url:function(){
@@ -20,8 +22,7 @@ app.factory('TumblrService', ['$http', '$sce','$location',  function ($http, $sc
                var promise = $http.jsonp(tumblr.url())
                .success(function(data, status) {
                   tumblr.status = data.meta.status;
-                  if(tumblr.status == 200){                       
-                     console.log("NEW SITE ---------------------------- ");                  
+                  if(tumblr.status == 200){     
                      if(data.response.total_posts == 0){   // no pics. Go home.
                         tumblr.status='noPictures'; 
                         return;                                                         
@@ -56,16 +57,10 @@ app.factory('TumblrService', ['$http', '$sce','$location',  function ($http, $sc
          var promise = $http.jsonp(tumblr.url())
          .success(function(data, status) {
             tumblr.status = data.meta.status;
-            if(tumblr.status == 200){     
-               console.log('offset', tumblr.current.pictures.length);
-               tumblr.offset = tumblr.current.pictures.length;                
+            if(tumblr.status == 200){         
                var totalPictures = tumblr.current.totalPictures;
-               var ppp = 20 //$scope.ppp;
-               var buffer = 80// $scope.buffer;   
                // calculate how many pics to buffer
-               var picsToLoad =(totalPictures < buffer) ? totalPictures : buffer;
-               console.log('picstoload:', picsToLoad, ' loaded ->', tumblr.current.pictures.length);         
-               console.log('loading...');            
+               var picsToLoad =(totalPictures < tumblr.buffer) ? totalPictures : tumblr.buffer;
                var currentOffset = tumblr.current.pictures.length;
                var picts=data.response.posts; 
       			for(var i=0; i< picts.length; i++){
@@ -79,8 +74,9 @@ app.factory('TumblrService', ['$http', '$sce','$location',  function ($http, $sc
       				   fullsize:full.url,      
       				   caption:picts[i].caption                           
       			   }      
-      			   console.log(tumblr.current.pictures[i+currentOffset].thumb);         
-      			}    
+      			   console.log(i+currentOffset+' - ', tumblr.current.pictures[i+currentOffset].thumb);         
+      			}  
+      			tumblr.offset = i+currentOffset;
          		if (tumblr.current.pictures.length < picsToLoad) {
                   tumblr.getPictures(); // loop to fill buffer
                }  

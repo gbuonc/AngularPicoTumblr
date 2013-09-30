@@ -114,6 +114,7 @@ ng-view {
    left:0px;
    right:0px;
    bottom:0px;
+   overflow: auto;
 }
 thumbnail, .thumb-wrapper{
    float: left;
@@ -121,4 +122,8 @@ thumbnail, .thumb-wrapper{
    height: 25%;
    position: relative;
    outline:2px solid #fff;
+   color: #fff;
+   text-shadow:0px 0px 4px #000, 0px 0px 4px #000, 0px 0px 4px #000;
+   font-size: 15px;
+   font-weight: bold;
 }

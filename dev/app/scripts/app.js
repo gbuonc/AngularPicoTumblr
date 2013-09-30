@@ -78,7 +78,6 @@ app.controller('thumbsCtrl', ['$scope', '$route', '$routeParams', '$location', '
 
    
    $scope.$watch('tumblr.current.pictures.length', function(l){
-      console.log(l);
       // var totalPictures = $scope.tumblr.current.totalPictures;
       //       var ppp = $scope.ppp;
       //       var buffer = $scope.buffer;
