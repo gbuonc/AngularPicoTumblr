@@ -19,6 +19,7 @@ app.factory('TumblrService', ['$http', '$sce','$location',  function ($http, $sc
             if(!tumblr.current.id || (tumblr.current.id != tumblr.id)){ // if is a new search
                tumblr.isLoading = true; // show spinner
                tumblr.offset = 0;
+               tumblr.buffered = false;
                var promise = $http.jsonp(tumblr.url())
                .success(function(data, status) {
                   tumblr.status = data.meta.status;
@@ -74,19 +75,20 @@ app.factory('TumblrService', ['$http', '$sce','$location',  function ($http, $sc
       				   fullsize:full.url,      
       				   caption:picts[i].caption                           
       			   }      
-      			   console.log(i+currentOffset+' - ', tumblr.current.pictures[i+currentOffset].thumb);         
       			}  
       			tumblr.offset = i+currentOffset;
          		if (tumblr.current.pictures.length < picsToLoad) {
                   tumblr.getPictures(); // loop to fill buffer
+               }else{
+                  tumblr.buffered = true;
+                  tumblr.isLoading = false;
                }  
-               tumblr.isLoading = false;
-               
             }         
             return   
          })
          .error(function(data, status){                   
-            tumblr.status='generic';      
+            tumblr.status='generic';  
+            tumblr.isLoading = false;    
             return;         
          });     
          

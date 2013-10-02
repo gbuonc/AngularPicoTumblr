@@ -10,25 +10,7 @@
       <link rel="stylesheet" href="assets/css/bootstrap.css">
       <link rel="stylesheet" href="assets/css/topcoat-mobile-dark.css">  
       <link rel="stylesheet" href="assets/css/main.css">
-      <link rel="stylesheet" href="assets/css/animations.css">         
-      <!-- build:js scripts/scripts.js -->        
-      <!-- angular modules -->    
-      <script src="http://code.angularjs.org/1.2.0-rc.2/angular.min.js"></script>
-      <script src="http://code.angularjs.org/1.2.0-rc.2/angular-route.min.js"></script>
-      <script src="http://code.angularjs.org/1.2.0-rc.2/angular-animate.min.js"></script>  
-      <script src="http://code.angularjs.org/1.2.0-rc.2/angular-sanitize.min.js"></script> 
-      <!-- app -->      
-      <script src="scripts/app.js"></script>      
-      <!-- vendors -->
-      <script src="scripts/vendors/spin.js"></script>     
-      <script src="scripts/vendors/moment.min.js"></script>            
-      <!-- services -->
-      <script src="scripts/services/tumblr.js"></script>
-      <!-- directives -->
-      <script src="scripts/directives/helpers.js"></script>      
-      <!-- filters -->
-      <script src="scripts/filters/timeago.js"></script>  
-      <!-- endbuild -->   
+      <link rel="stylesheet" href="assets/css/animations.css">      
    </head>
    <body ng-app="picoTumblr" ng-controller="MainCtrl">      
       <div class="main-app pt-perspective {{pageAnimation}}">      
@@ -43,6 +25,27 @@
          <a ng-class="{on: currentView=='thumbs'}" href="#/" page-animation="scaleDown">Route B scale down</a> |
          <a ng-class="{on: currentView=='viewC'}" href="#/" page-animation="scaleUp">Route C scale up</a> |
          <input type="checkbox" ng-model="tumblr.isLoading" /> {{tumblr.isLoading?'hide':'show'}} Spinner
-      </div> -->    
+      </div> -->   
+      
+      <!-- build:js scripts/scripts.js -->        
+      <!-- angular modules -->    
+      <script src="http://code.angularjs.org/1.2.0-rc.2/angular.min.js"></script>
+      <script src="http://code.angularjs.org/1.2.0-rc.2/angular-route.min.js"></script>
+      <script src="http://code.angularjs.org/1.2.0-rc.2/angular-animate.min.js"></script>  
+      <script src="http://code.angularjs.org/1.2.0-rc.2/angular-sanitize.min.js"></script> 
+      <!-- app -->      
+      <script src="scripts/app.js"></script>      
+      <!-- vendors -->
+      <script src="scripts/vendors/spin.js"></script>     
+      <script src="scripts/vendors/swipeview.js"></script>      
+      <script src="scripts/vendors/moment.min.js"></script>            
+      <!-- services -->
+      <script src="scripts/services/tumblr.js"></script>
+      <!-- directives -->
+      <script src="scripts/directives/helpers.js"></script> 
+      <script src="scripts/directives/carousel.js"></script>  
+      <!-- filters -->
+      <script src="scripts/filters/timeago.js"></script>  
+      <!-- endbuild -->    
    </body>
 </html>

@@ -9,8 +9,8 @@ app.config(function ($routeProvider) {
       currentView: 'home'
    })
    .when('/:tumblrId', {
-      templateUrl:'views/thumbs.html',
-      currentView: 'thumbs'
+      templateUrl:'views/grid.html',
+      currentView: 'grid'
    })   
    .otherwise({
       redirectTo:'/home'
@@ -21,10 +21,7 @@ app.config(function ($routeProvider) {
 app.controller('MainCtrl', 
 ['$scope', '$route', '$routeParams', '$timeout', '$location', 'TumblrService', 
 function ($scope, $route, $routeParams, $timeout, $location, TumblrService) { 
-   // config -----------------------------------
-   $scope.ppp = 20; // picsPerPage
-   $scope.buffer = 80; // pics to preload
-   // ------------------------------------------  
+   document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
    $scope.tumblr = TumblrService;     
    $scope.$on(
       "$routeChangeSuccess",
@@ -69,32 +66,13 @@ app.controller('HomeCtrl', ['$scope', 'TumblrService', function ($scope, TumblrS
 }]);
 
 /* thumbs */
-app.controller('thumbsCtrl', ['$scope', '$route', '$routeParams', '$location', 'TumblrService', function ($scope, $route, $routeParams, $location, TumblrService) {  
+app.controller('gridCtrl', ['$scope', '$route', '$routeParams', '$location', 'TumblrService', function ($scope, $route, $routeParams, $location, TumblrService) {  
    $scope.tumblr.id = $routeParams.tumblrId;
    $scope.tumblr = TumblrService;   
 
    //get data when entering the page if coming directly from adress bar
    if(!$scope.tumblr.current.id) $scope.tumblr.getTumblr();
 
-   
-   $scope.$watch('tumblr.current.pictures.length', function(l){
-      // var totalPictures = $scope.tumblr.current.totalPictures;
-      //       var ppp = $scope.ppp;
-      //       var buffer = $scope.buffer;
-      //             // var totalPages = (totalPictures % ppp === 0) ? totalPictures / ppp : Math.floor((totalPictures / ppp) + 1);
-      //       if($scope.tumblr.current.totalPictures){
-      //          // calculate how many pics to buffer
-      //          var picsToLoad =(totalPictures< buffer)?totalPictures:buffer;
-      //          if ($scope.tumblr.current.pictures && $scope.tumblr.current.pictures.length < picsToLoad) {
-      //             console.log('load again');
-      //             $scope.tumblr.offset += ppp;
-      //             $scope.tumblr.getData();
-      //          } else {               
-      //             console.log('load done');
-      //          }     
-      //       }     
-   });
-   
    // random fade in number
    var delays = [];
    $scope.random = function(i) {

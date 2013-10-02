@@ -7,28 +7,28 @@
  */
 angular.module('angularSpinner', [])
 .directive('ngSpinner', ['$window', function ($window) {
-		return {
-			scope: true,
-			link: function (scope, element, attr) {
-				scope.spinner = null;				
-				function stopSpinner() {
-					if (scope.spinner) {
-						scope.spinner.stop();
-						scope.spinner = null;
-					}
-				}				
-				scope.$watch(attr.ngSpinner, function (options) {
-					stopSpinner();
-					scope.spinner = new $window.Spinner(options);
-					scope.spinner.spin(element[0]);
-				}, true);
-				
-				scope.$on('$destroy', function () {
-					stopSpinner();
-				});
-			}
-		};
-	}]);
+	return {
+		scope: true,
+		link: function (scope, element, attr) {
+			scope.spinner = null;				
+			function stopSpinner() {
+				if (scope.spinner) {
+					scope.spinner.stop();
+					scope.spinner = null;
+				}
+			}				
+			scope.$watch(attr.ngSpinner, function (options) {
+				stopSpinner();
+				scope.spinner = new $window.Spinner(options);
+				scope.spinner.spin(element[0]);
+			}, true);
+			
+			scope.$on('$destroy', function () {
+				stopSpinner();
+			});
+		}
+	};
+}]);
 // page animations
 app.directive('pageAnimation', function($animate) {
    return {
@@ -96,3 +96,4 @@ app.directive('thumbnail', function(){
       }      
    };
 });
+

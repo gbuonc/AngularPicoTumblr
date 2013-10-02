@@ -1,0 +1,5 @@
+<div class="grid-page-container">
+   <div ng-repeat="item in tumblr.current.pictures" class="thumb" style="transition-delay: {{random($index) * 300}}ms">
+      <thumbnail ng-background="{{item.thumb}}" index="{{$index}}">{{$index}}</thumbnail>      
+   </div>
+</div>
