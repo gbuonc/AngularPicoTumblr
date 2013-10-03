@@ -91,7 +91,7 @@ app.directive('thumbnail', function(){
       restrict: 'E',   
       link: function(scope, element, attrs){
          element.bind('click', function() {            
-            console.log(attrs.index);
+            //console.log(attrs.index);
          });      
       }      
    };

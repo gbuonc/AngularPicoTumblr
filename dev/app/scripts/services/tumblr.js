@@ -35,7 +35,7 @@ app.factory('TumblrService', ['$http', '$sce','$location',  function ($http, $sc
                      tumblr.current.updated = data.response.blog.updated;
                      tumblr.current.totalPictures=data.response.total_posts;                       
                      tumblr.current.pictures = [];
-                     tumblr.getPictures();   
+                     tumblr.getPictures(true);   
                      $location.path('/'+tumblr.id);
                      return data; 
                   }         
@@ -53,8 +53,8 @@ app.factory('TumblrService', ['$http', '$sce','$location',  function ($http, $sc
             return;
          }         
       },
-      getPictures: function(){
-         tumblr.isLoading = true; // show spinner
+      getPictures: function(showSpinner){
+         if(showSpinner) tumblr.isLoading = true; // show spinner
          var promise = $http.jsonp(tumblr.url())
          .success(function(data, status) {
             tumblr.status = data.meta.status;
@@ -78,7 +78,7 @@ app.factory('TumblrService', ['$http', '$sce','$location',  function ($http, $sc
       			}  
       			tumblr.offset = i+currentOffset;
          		if (tumblr.current.pictures.length < picsToLoad) {
-                  tumblr.getPictures(); // loop to fill buffer
+                  tumblr.getPictures(true); // loop to fill buffer
                }else{
                   tumblr.buffered = true;
                   tumblr.isLoading = false;
