@@ -4,7 +4,6 @@ html, body{
    margin: 0px;
    padding: 0px;
 }
-
 .hidden{visibility: hidden;}
 .main-app{
    width: 100%; /* 500px; */
