@@ -8,13 +8,17 @@ app.directive('carousel', ['$window', '$compile', function($window, $compile) {
             if(b){               
                // init once the first images have been buffered
                var totalPages = Math.ceil(scope.tumblr.current.totalPictures/scope.tumblr.ppp);
+               // add grid index to scope
+               scope.tumblr.gridIndex = scope.tumblr.gridIndex || 0;
+               
                var gridGallery = new SwipeView(element[0], {
                   numberOfPages: totalPages,
                   loop: false,
                   vertical: true
                });
-               // add grid index to scope
-               scope.tumblr.gridIndex = gridGallery.pageIndex;
+               
+               // go to currentpage
+               gridGallery.goToPage(scope.tumblr.gridIndex);
                var el, i;
                // Load initial data
                for (i=0; i<3; i++) {
@@ -63,6 +67,15 @@ app.directive('carousel', ['$window', '$compile', function($window, $compile) {
                   }
                   // first page
                   gridGallery.pageIndex === 0 ? firstSlide.addClass('hidden') : firstSlide.removeClass('hidden');
+                  
+                  //Add/remove active class
+                  var current = angular.element(gridGallery.masterPages[gridGallery.currentMasterPage]);
+                  gridGallery.onMoveOut(function () {                     
+                  	current.removeClass('swipeview-active');
+                  });                  
+                  gridGallery.onMoveIn(function () {
+                  	current.addClass('swipeview-active');
+                  });
                });
             }     
          });
@@ -70,29 +83,5 @@ app.directive('carousel', ['$window', '$compile', function($window, $compile) {
 	};
 }]);
 
-app.directive('gridPage', ['$window', function($window){
-   return{
-      restrict: 'A',
-      scope:{ 
-         slideIndex:'@startindex'         
-      },
-      transclude: true,
-      templateUrl:'views/partials/thumbnails.html',
-      link: function(scope, element, attrs){ 
-         var ppp = scope.$parent.tumblr.ppp;
-         var t = scope.$parent.tumblr.current;
-         var l = Math.ceil(t.totalPictures/ppp);
-         var tempPicsArray = t.pictures;
-         var index = scope.$parent.tumblr.gridIndex;
-         scope.contents = []; 
-         // populate content for slides
-         for(var i=0; i<l; i++){
-            scope.contents[i] = tempPicsArray.slice(i*ppp, (i*ppp)+ppp);
-         }
-         scope.$parent.$watch('tumblr.gridIndex', function(i){
-            scope.contents[i] = tempPicsArray.slice(i*ppp, (i*ppp)+ppp);
-         });   
-      }
-   }
-}]);
+
 

@@ -1,5 +1,5 @@
 'use strict';
-var app= angular.module('picoTumblr', ['ngRoute', 'ngAnimate', 'ngSanitize', 'angularSpinner']);
+var app= angular.module('picoTumblr', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngTouch', 'angularSpinner']);
 
 // ROUTES °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 app.config(function ($routeProvider) {
@@ -11,6 +11,10 @@ app.config(function ($routeProvider) {
    .when('/:tumblrId', {
       templateUrl:'views/grid.html',
       currentView: 'grid'
+   })  
+   .when('/:tumblrId/:id', {
+      templateUrl:'views/detail.html',
+      currentView: 'detail'
    })   
    .otherwise({
       redirectTo:'/home'

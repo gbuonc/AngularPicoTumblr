@@ -85,15 +85,5 @@ app.directive('placehold', function() {
       }
    };
 });
-// thumbnail in grid
-app.directive('thumbnail', function(){
-   return{
-      restrict: 'E',   
-      link: function(scope, element, attrs){
-         element.bind('click', function() {            
-            //console.log(attrs.index);
-         });      
-      }      
-   };
-});
+
 

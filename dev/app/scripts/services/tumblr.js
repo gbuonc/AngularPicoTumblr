@@ -27,7 +27,7 @@ app.factory('TumblrService', ['$http', '$sce','$location',  function ($http, $sc
                      if(data.response.total_posts == 0){   // no pics. Go home.
                         tumblr.status='noPictures'; 
                         return;                                                         
-                     }   
+                     } 
                      tumblr.current.id = tumblr.id;
                      tumblr.current.title = $sce.trustAsHtml(data.response.blog.title);
                      tumblr.current.description = $sce.trustAsHtml(data.response.blog.description);  
@@ -70,7 +70,8 @@ app.factory('TumblrService', ['$http', '$sce','$location',  function ($http, $sc
       				// tumblr bug??? 1280 pix get 403 error. So get 500px pic (first or second object depending on original pic)
       				var full = picts[i].photos[0].alt_sizes[0]; 
       				full = full.width <= 500 ? full : picts[i].photos[0].alt_sizes[1];         				
-      				tumblr.current.pictures[i+currentOffset]={                        
+      				tumblr.current.pictures[i+currentOffset]={  
+      				   picIndex: i+currentOffset,                  
       				   thumb:picts[i].photos[0].alt_sizes[thumbnail].url,
       				   fullsize:full.url,      
       				   caption:picts[i].caption                           
