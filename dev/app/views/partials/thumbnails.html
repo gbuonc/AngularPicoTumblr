@@ -1,5 +1,5 @@
 <div class="grid-page-container">
-   <div style="position:absolute; z-index:1000; background:black; color: white; font-size:50px; padding:10px;">{{gridIndex}}</div>
+   <div style="position:absolute; z-index:1000; background:black; color: white; font-size:20px; padding:10px;">gridIndex {{gridIndex}} - SlideIndex {{slideIndex}}</div>
    <div ng-repeat="item in contents[slideIndex]" class="thumb" style="transition-delay: {{random($index) * 300}}ms">
       <thumbnail ng-background="{{item.thumb}}" index="{{item.picIndex}}">{{item.picIndex}}</thumbnail>      
    </div>

@@ -76,6 +76,7 @@ var SwipeView = (function(){
 		},
 		
 		goToPage: function (p) {
+
 		   this.refreshSize();
 			if( this.options.dynamic ) {
 				this.masterPages[this.currentMasterPage].className = this.masterPages[this.currentMasterPage].className.replace(/(^|\s)swipeview-active(\s|$)/, '');
@@ -83,19 +84,17 @@ var SwipeView = (function(){
 					className = this.masterPages[i].className;
 					/(^|\s)swipeview-loading(\s|$)/.test(className) || (this.masterPages[i].className = !className ? 'swipeview-loading' : className + ' swipeview-loading');
 				}
-			}			
+			}		
 			p = p < 0 ? 0 : p > this.options.numberOfPages-1 ? this.options.numberOfPages-1 : p;
 			this.page = p;
-			this.pageIndex = p;
-			
+			this.pageIndex = p;			
 			this.slider.style.webkitTransitionDuration = '0';
 			this.__pos(-p * this.pageSize);
-			
 			if( this.options.dynamic )
 				this.currentMasterPage = (this.page + 1) - Math.floor((this.page + 1) / 3) * 3;
 			else
 				this.currentMasterPage = this.page;
-			
+				
 			if( this.options.dynamic ){
 				this.masterPages[this.currentMasterPage].className = this.masterPages[this.currentMasterPage].className + ' swipeview-active';
 				var mp0,mp1,mp2;
@@ -120,9 +119,7 @@ var SwipeView = (function(){
 				this.__movePage( mp2, rightpageindex, this.page * 100 + 100 );
 			}
 			else {
-				
-			} 
-			
+			} 			
 			this.__flip();
 		},
 		
@@ -283,7 +280,6 @@ var SwipeView = (function(){
 		},
 		
 		__movePage: function( el, idx, pos ) {
-			
 			var x = this.topmult * pos;
 			var y = this.leftmult * pos;
 			
@@ -537,7 +533,7 @@ var SwipeView = (function(){
 				}
 			}
 		},
-		
+				
 		__event: function (type,opts) {
 			var ev = document.createEvent("Event");
 			ev.initEvent('swipeview-' + type, true, true);
