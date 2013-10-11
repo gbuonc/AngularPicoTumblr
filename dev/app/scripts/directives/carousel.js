@@ -27,19 +27,16 @@ app.directive('carousel', ['$window', '$compile', '$timeout', function($window, 
                if(totalPages == 1) thirdSlide.addClass('hidden'); // hide slide after first one (if there's one page only )
                
                // render on flip
-	            gridGallery.onFlip(function () { 	 
-	               console.log(angular.element('<div class="grid-page" />'));
+	            gridGallery.onFlip(function () { 	 	               
 	               // load more pics when scrolling forward
                   if (gridGallery.direction === 'forward') { 
                      gridGallery.totalSwipes += 1;
                      scope.tumblr.getPictures();
-                  }                  
-              
+                  }               
                   var el, i;
                   for (i=0; i<3; i++) {     
                      var upcoming = gridGallery.masterPages[i].dataset.upcomingPageIndex;
-                     if(((scope.tumblr.gridIndex==0 && gridGallery.totalSwipes<1) 
-                        || (upcoming != gridGallery.masterPages[i].dataset.pageIndex))){                     
+                     if(angular.element(gridGallery.masterPages[i]).html()=='' || upcoming != gridGallery.masterPages[i].dataset.pageIndex){                 
                         var tmpl = $compile('<div grid-page startIndex="'+upcoming+'"></div>')(scope);
                         el = tmpl[0];
                         angular.element(gridGallery.masterPages[i]).html('');
