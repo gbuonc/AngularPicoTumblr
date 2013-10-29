@@ -3,69 +3,76 @@ app.directive('carousel', ['$window', '$compile', '$timeout', function($window, 
 	return {
 	   restrict: 'A',   
 		link: function (scope, element, attr) {
-		   // carouselType : grid || detail		   
+		   var isGrid = attr.carouselType == 'grid';         
          scope.$watch('tumblr.buffered', function(b){ 
             if(b){               
                // init once the first images have been buffered
-               var totalPages = Math.ceil(scope.tumblr.current.totalPictures/scope.tumblr.ppp);
-               // add grid index to scope
-               scope.tumblr.gridIndex = scope.tumblr.gridIndex || 0;               
-               var gridGallery = new SwipeView(element[0], {
+               var totalPics = scope.tumblr.current.totalPictures;
+               var totalPages = isGrid ? Math.ceil(totalPics/scope.tumblr.ppp) : totalPics;
+               // add current index
+               var index = isGrid ? 'gridIndex' : 'detailIndex';
+               scope.tumblr[index] = scope.tumblr[index] || 0;                    
+               var carousel = new SwipeView(element[0], {
                   numberOfPages: totalPages,
                   loop: false,
-                  vertical: true
-               });
-               gridGallery.totalSwipes = 0;
+                  vertical: isGrid ? true : false
+               });               
+               carousel.totalSwipes = 0;
                $timeout(function(){
-                  gridGallery.goToPage(scope.tumblr.gridIndex);   
-               }, 0)            
-                           
-               var firstSlide =  angular.element(gridGallery.masterPages[0].firstChild);
-               var secondSlide = angular.element(gridGallery.masterPages[1].firstChild);
-               var thirdSlide =  angular.element(gridGallery.masterPages[2].firstChild);
-               if(scope.tumblr.gridIndex == 0) firstSlide.addClass('hidden'); // hide slide before first one (if we start from 0)      
+                  carousel.goToPage(scope.tumblr[index]); 
+               }, 0)       
+               var firstSlide =  angular.element(carousel.masterPages[0].firstChild);
+               var secondSlide = angular.element(carousel.masterPages[1].firstChild);
+               var thirdSlide =  angular.element(carousel.masterPages[2].firstChild);
+               if(scope.tumblr[index] == 0) firstSlide.addClass('hidden'); // hide slide before first one (if we start from 0)      
                if(totalPages == 1) thirdSlide.addClass('hidden'); // hide slide after first one (if there's one page only )
                
                // render on flip
-	            gridGallery.onFlip(function () { 	 	               
-	               // load more pics when scrolling forward
-                  if (gridGallery.direction === 'forward') { 
-                     gridGallery.totalSwipes += 1;
+	            carousel.onFlip(function () { 	
+                  // load more pics when scrolling forward (TODO CHECK)
+                  if (carousel.direction === 'forward') { 
+                     carousel.totalSwipes += 1;
                      scope.tumblr.getPictures();
                   }               
                   var el, i;
                   for (i=0; i<3; i++) {     
-                     var upcoming = gridGallery.masterPages[i].dataset.upcomingPageIndex;
-                     if(angular.element(gridGallery.masterPages[i]).html()=='' || upcoming != gridGallery.masterPages[i].dataset.pageIndex){                 
-                        var tmpl = $compile('<div grid-page startIndex="'+upcoming+'"></div>')(scope);
+                     var upcoming = carousel.masterPages[i].dataset.upcomingPageIndex;
+                     if(angular.element(carousel.masterPages[i]).html()=='' || upcoming != carousel.masterPages[i].dataset.pageIndex){      
+                        if(isGrid){
+                           var tmpl = $compile('<div grid-page startIndex="'+upcoming+'"></div>')(scope);
+                        } else{                           
+                           var tmpl = $compile('<div detail-page startIndex="'+upcoming+'"></div>')(scope);
+                        }
                         el = tmpl[0];
-                        angular.element(gridGallery.masterPages[i]).html('');
-                        gridGallery.masterPages[i].appendChild(el);  
+                        angular.element(carousel.masterPages[i]).html('');
+                        carousel.masterPages[i].appendChild(el);  
                      }                  
                   }  
-                  // update grid index to scope
+                  // update index to scope
                   scope.$apply(function(){
-                     scope.tumblr.gridIndex = gridGallery.pageIndex;
-                  });	               
-	                                
+                     scope.tumblr[index] = carousel.pageIndex;  
+                     if(scope.tumblr.detailIndex){
+                        //change grid index when coming back from detail
+                        scope.tumblr.gridIndex = Math.floor(scope.tumblr.detailIndex/scope.tumblr.ppp);
+                     }                   
+                  });	  
 	               // manage out of bounds slides
 	               // last page
-	               if(gridGallery.pageIndex === totalPages-1){
-	                  angular.element(gridGallery.masterPages[(gridGallery.pageIndex+2)%3].firstChild).addClass('hidden');
+	               if(carousel.pageIndex === totalPages-1){
+	                  angular.element(carousel.masterPages[(carousel.pageIndex+2)%3].firstChild).addClass('hidden');
 	               }else{ // inner pages	                  
 	                  firstSlide.removeClass('hidden');
 	                  secondSlide.removeClass('hidden');
 	                  thirdSlide.removeClass('hidden');
                   }
                   // first page
-                  gridGallery.pageIndex === 0 ? firstSlide.addClass('hidden') : firstSlide.removeClass('hidden');
-                  
+                  carousel.pageIndex === 0 ? firstSlide.addClass('hidden') : firstSlide.removeClass('hidden');
                   //Add/remove active class
-                  var current = angular.element(gridGallery.masterPages[gridGallery.currentMasterPage]);
-                  gridGallery.onMoveOut(function () {                     
+                  var current = angular.element(carousel.masterPages[carousel.currentMasterPage]);
+                  carousel.onMoveOut(function () {                     
                   	current.removeClass('swipeview-active');
                   });                  
-                  gridGallery.onMoveIn(function () {
+                  carousel.onMoveIn(function () {
                   	current.addClass('swipeview-active');
                   });
                });

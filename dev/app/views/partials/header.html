@@ -1,0 +1,3 @@
+<h1 class="header-title" ng-bind-html="tumblr.current.title"></h1>         
+<img ng-src="{{tumblr.current.avatar}}" alt="{{tumblr.current.title}}" class="header-avatar" ng-show="tumblr.current.id" ng-click="goBack()">
+<div class="header-info" ng-show="tumblr.current.id"><strong>Last updated</strong>: {{tumblr.current.updated | timeAgo}}  &nbsp;&nbsp;&nbsp;<strong>totalPictures</strong>: {{tumblr.current.totalPictures}}</div>

@@ -1,11 +1,8 @@
-<div class="pt-page" ng-controller="gridCtrl">
-   <!-- header -->
+<div class="pt-page" ng-controller="detailCtrl">
    <section class="thumbs-header">
       <h1 class="header-title" ng-bind-html="tumblr.current.title"></h1>         
       <img ng-src="{{tumblr.current.avatar}}" alt="{{tumblr.current.title}}" class="header-avatar" ng-show="tumblr.current.id">
       <div class="header-info" ng-show="tumblr.current.id"><strong>Last updated</strong>: {{tumblr.current.updated | timeAgo}}  &nbsp;&nbsp;&nbsp;<strong>totalPictures</strong>: {{tumblr.current.totalPictures}}</div>
-      <div ng-include="'views/partials/searchform.html'"></div>   
    </section>
-   <!-- grid -->
-   <div id="carousel" carousel carousel-type="grid" ></div>   
+   <div id="carousel" carousel carousel-type="detail"></div>
 </div>

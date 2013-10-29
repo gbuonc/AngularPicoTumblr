@@ -10,7 +10,8 @@ app.factory('TumblrService', ['$http', '$sce','$location',  function ($http, $sc
       ppp: 20,
       buffer: 80,
       offset:0,
-      isLoading : false,    
+      isLoading : false, 
+      isCaptionOpen : true,  
       url:function(){
          return 'http://api.tumblr.com/v2/blog/'+tumblr.id+'.tumblr.com/posts/photo?offset='+tumblr.offset+'&limit=20&api_key='+apiKey+'&callback=JSON_CALLBACK'
       },

@@ -46,7 +46,8 @@ app.directive('ngBackground', function(){
       attrs.$observe('ngBackground', function(value) {
          element.css({
             'background-image': 'url(' + value +')',
-            'background-size' : 'cover',
+            'background-size' : attrs.backgroundContain ? 'contain' : 'cover',
+            'background-repeat': 'no-repeat',
             'background-position': 'center'
          });
       });

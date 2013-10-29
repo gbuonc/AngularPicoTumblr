@@ -55,10 +55,8 @@ function ($scope, $route, $routeParams, $timeout, $location, TumblrService) {
          }
          $timeout(function(){            
             alert(errorMsgs[$scope.tumblr.status]);   
-            $scope.tumblr.id = null; 
-            // if($scope.tumblr.history.length == 0){
-            //                location.href="#/home"; 
-            //             }
+            $scope.tumblr.id = null;            
+            location.href="#/home";             
          }, 0);         
       }
    });
@@ -70,21 +68,40 @@ app.controller('HomeCtrl', ['$scope', 'TumblrService', function ($scope, TumblrS
 }]);
 
 /* thumbs */
-app.controller('gridCtrl', ['$scope', '$route', '$routeParams', '$location', 'TumblrService', function ($scope, $route, $routeParams, $location, TumblrService) {  
-   $scope.tumblr.id = $routeParams.tumblrId;
+app.controller('gridCtrl', ['$scope', '$route', '$routeParams', '$location', 'TumblrService', function ($scope, $route, $routeParams, $location, TumblrService) {     $scope.tumblr.id = $routeParams.tumblrId;
    $scope.tumblr = TumblrService;   
-
    //get data when entering the page if coming directly from adress bar
    if(!$scope.tumblr.current.id) $scope.tumblr.getTumblr();
-
+   // Back Btn in header    
+   $scope.goBack = function(){
+      location.href='#/home';
+   }  
    // random fade in number
    var delays = [];
    $scope.random = function(i) {
       if(!delays[i]) delays[i] = Math.random();
       return delays[i];
-   };   
-   
+   };      
 }]);
+
+/* detail */
+app.controller('detailCtrl', ['$scope', '$route', '$routeParams', '$location', 'TumblrService', function ($scope, $route, $routeParams, $location, TumblrService) {  
+   $scope.tumblr.id = $routeParams.tumblrId;
+   $scope.tumblr.pic = $routeParams.id;
+   $scope.tumblr = TumblrService; 
+   // caption status 
+   $scope.captionStatus = 'open'; 
+   $scope.changeStatus = function(){
+      $scope.captionStatus = ($scope.captionStatus == 'open') ? '' : 'open';
+   }  
+   // Back Btn in header    
+   $scope.goBack = function(){
+      location.href='#/'+$scope.tumblr.id;
+   }  
+   // check
+   if(!$scope.tumblr.current.id) $scope.tumblr.getTumblr();    
+}]);
+
 
 /* history */
 app.controller('HistoryCtrl', ['$scope', 'TumblrService', function ($scope, TumblrService) {    
