@@ -1,3 +1,4 @@
+'use strict';
 app.directive('pageAnimation', function($animate) {
    return {
       restrict: 'A',

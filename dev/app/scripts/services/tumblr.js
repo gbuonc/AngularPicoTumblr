@@ -1,3 +1,4 @@
+'use strict';
 app.factory('TumblrService', ['$rootScope', '$http', '$sce','$location',  function ($rootScope, $http, $sce, $location) {
    var apiKey = 'XlCJ1kpxkFjgblfrnXXm6LE1hfYcmf56jaru6PynxidzEfFJVe';
    window.addEventListener("offline", function(e) {

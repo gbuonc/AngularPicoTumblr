@@ -2,6 +2,8 @@
    -webkit-box-sizing: border-box;
    -moz-box-sizing: border-box;
    box-sizing: border-box;
+   -webkit-touch-callout:none;
+   -webkit-tap-highlight-color: transparent;
 }
 html, body{
    width: 100%;
@@ -146,6 +148,7 @@ thumbnail{
    position: relative; 
    width: 100%;
    height: 100%;
+   outline: 1px solid #ddd;
 }
 .carousel{
    position: absolute!important;
