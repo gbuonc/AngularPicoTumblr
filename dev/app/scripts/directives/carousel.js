@@ -1,4 +1,5 @@
 // CAROUSEL 
+'use strict';
 app.directive('carousel', ['$window', '$compile', '$timeout', function($window, $compile, $timeout) {
 	return {
 	   restrict: 'A',   

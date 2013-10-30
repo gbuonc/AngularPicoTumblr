@@ -1,3 +1,4 @@
+'use strict';
 app.directive('gridPage', ['$window', function($window){
    return{
       restrict: 'A',

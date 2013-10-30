@@ -21,9 +21,9 @@
 	animation: moveFromBottom .6s ease both;
 }
 .fromBottom .pt-page.ng-leave{
-   -webkit-animation: fade .7s ease both;
-	-moz-animation: fade .7s ease both;
-	animation: fade .7s ease both;
+   -webkit-animation: fade .6s ease both;
+	-moz-animation: fade .6s ease both;
+	animation: fade .6s ease both;
 }
 /*8*/
 .fromTop .pt-page.ng-enter{
@@ -32,9 +32,9 @@
 	animation: moveFromTop .6s ease both;
 }
 .fromTop .pt-page.ng-leave{
-   -webkit-animation: fade .7s ease both;
-	-moz-animation: fade .7s ease both;
-	animation: fade .7s ease both;
+   -webkit-animation: fade .6s ease both;
+	-moz-animation: fade .6s ease both;
+	animation: fade .6s ease both;
 }
 /* 13*/
 .fromRight .pt-page.ng-enter{
@@ -43,9 +43,9 @@
 	animation: moveFromRight .6s ease both;
 }
 .fromRight .pt-page.ng-leave{
-   -webkit-animation: moveToLeft .7s ease-in-out both;
-	-moz-animation: moveToLeft .7s ease-in-out both;
-	animation: moveToLeft .7s ease-in-out both;
+   -webkit-animation: moveToLeft .6s ease both;
+	-moz-animation: moveToLeft .6s ease both;
+	animation: moveToLeft .6s ease both;
 }
 /* 14*/
 .fromLeft .pt-page.ng-enter{
@@ -55,9 +55,9 @@
 
 }
 .fromLeft .pt-page.ng-leave{
-      -webkit-animation: moveToRight .7s ease-in-out both;
-	-moz-animation: moveToRight .7s ease-in-out both;
-	animation: moveToRight .7s ease-in-out both;
+      -webkit-animation: moveToRight .6s ease both;
+	-moz-animation: moveToRight .6s ease both;
+	animation: moveToRight .6s ease both;
 }
 /*21*/
 .scaleDown .pt-page.ng-enter{

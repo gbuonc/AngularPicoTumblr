@@ -1,3 +1,4 @@
+'use strict';
 app.directive('detailPage', ['$window','$sce', function($window, $sce){
    return{
       restrict: 'A',
