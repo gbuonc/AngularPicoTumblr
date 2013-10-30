@@ -23,16 +23,20 @@ app.config(function ($routeProvider) {
 
 // CONTROLLERS °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 app.controller('MainCtrl', 
-['$scope', '$route', '$routeParams', '$timeout', '$location', 'TumblrService', 
-function ($scope, $route, $routeParams, $timeout, $location, TumblrService) { 
+['$scope', '$rootScope', '$route', '$routeParams', '$timeout', '$location', 'TumblrService', 
+function ($scope, $rootScope, $route, $routeParams, $timeout, $location, TumblrService) { 
    document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+   $rootScope.pageAnimation = 'scaleDown';
    $scope.tumblr = TumblrService;     
    $scope.$on(
       "$routeChangeSuccess",
       function( $currentRoute, $previousRoute ){ 
          $scope.currentView = $route.current.currentView;          
       } 
-   );     
+   );   
+   $scope.setAnimation = function(anim){
+      $rootScope.pageAnimation = anim;
+   }  
    // offline error 
    $scope.$watch('tumblr.isOnline', function() {
       if($scope.tumblr.isOnline && $scope.tumblr.isOnline==false){
@@ -63,17 +67,19 @@ function ($scope, $route, $routeParams, $timeout, $location, TumblrService) {
 }]);
 
 /* home */
-app.controller('HomeCtrl', ['$scope', 'TumblrService', function ($scope, TumblrService) {    
-   $scope.tumblr = TumblrService;   
+app.controller('HomeCtrl', ['$scope', '$rootScope', 'TumblrService', function ($scope, $rootScope, TumblrService) { 
+   $scope.tumblr = TumblrService;      
 }]);
 
 /* thumbs */
-app.controller('gridCtrl', ['$scope', '$route', '$routeParams', '$location', 'TumblrService', function ($scope, $route, $routeParams, $location, TumblrService) {     $scope.tumblr.id = $routeParams.tumblrId;
+app.controller('gridCtrl', ['$scope', '$rootScope', '$route', '$routeParams', '$location', 'TumblrService', function ($scope, $rootScope, $route, $routeParams, $location, TumblrService) {     
+   $scope.tumblr.id = $routeParams.tumblrId;
    $scope.tumblr = TumblrService;   
    //get data when entering the page if coming directly from adress bar
    if(!$scope.tumblr.current.id) $scope.tumblr.getTumblr();
    // Back Btn in header    
    $scope.goBack = function(){
+      $rootScope.pageAnim = 'fromLeft';
       location.href='#/home';
    }  
    // random fade in number
@@ -85,7 +91,7 @@ app.controller('gridCtrl', ['$scope', '$route', '$routeParams', '$location', 'Tu
 }]);
 
 /* detail */
-app.controller('detailCtrl', ['$scope', '$route', '$routeParams', '$location', 'TumblrService', function ($scope, $route, $routeParams, $location, TumblrService) {  
+app.controller('detailCtrl', ['$scope', '$rootScope', '$route', '$routeParams', '$location', 'TumblrService', function ($scope, $rootScope, $route, $routeParams, $location, TumblrService) {  
    $scope.tumblr.id = $routeParams.tumblrId;
    $scope.tumblr.pic = $routeParams.id;
    $scope.tumblr = TumblrService; 
@@ -96,6 +102,7 @@ app.controller('detailCtrl', ['$scope', '$route', '$routeParams', '$location', '
    }  
    // Back Btn in header    
    $scope.goBack = function(){
+      $rootScope.pageAnim = 'scaleDown';
       location.href='#/'+$scope.tumblr.id;
    }  
    // check

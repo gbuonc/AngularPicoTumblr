@@ -1,4 +1,4 @@
-app.factory('TumblrService', ['$http', '$sce','$location',  function ($http, $sce, $location) {
+app.factory('TumblrService', ['$rootScope', '$http', '$sce','$location',  function ($rootScope, $http, $sce, $location) {
    var apiKey = 'XlCJ1kpxkFjgblfrnXXm6LE1hfYcmf56jaru6PynxidzEfFJVe';
    window.addEventListener("offline", function(e) {
       tumblr.isOnline = false;
@@ -22,21 +22,23 @@ app.factory('TumblrService', ['$http', '$sce','$location',  function ($http, $sc
                tumblr.offset = 0;
                tumblr.buffered = false;
                var promise = $http.jsonp(tumblr.url())
-               .success(function(data, status) {
+               .success(function(data, status) {                  
                   tumblr.status = data.meta.status;
                   if(tumblr.status == 200){     
                      if(data.response.total_posts == 0){   // no pics. Go home.
                         tumblr.status='noPictures'; 
                         return;                                                         
                      } 
+                     tumblr.current = {};
                      tumblr.current.id = tumblr.id;
                      tumblr.current.title = $sce.trustAsHtml(data.response.blog.title);
                      tumblr.current.description = $sce.trustAsHtml(data.response.blog.description);  
-                     tumblr.current.avatar= 'http://api.tumblr.com/v2/blog/'+tumblr.id+'.tumblr.com/avatar/128';     
+                     tumblr.current.avatar= 'http://api.tumblr.com/v2/blog/'+tumblr.id+'.tumblr.com/avatar/128'; 
                      tumblr.current.updated = data.response.blog.updated;
-                     tumblr.current.totalPictures=data.response.total_posts;                       
+                     tumblr.current.totalPictures=data.response.total_posts;    
                      tumblr.current.pictures = [];
                      tumblr.getPictures(true);   
+                     $rootScope.pageAnimation = 'fromRight';
                      $location.path('/'+tumblr.id);
                      return data; 
                   }         
@@ -48,6 +50,9 @@ app.factory('TumblrService', ['$http', '$sce','$location',  function ($http, $sc
                });     
                tumblr.isLoading = false;
                return promise;
+            }else{
+               // searching current id. Go to grid...
+               $location.path('/'+tumblr.id);
             }
          }else{       
             tumblr.status='empty';                

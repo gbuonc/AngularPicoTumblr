@@ -16,8 +16,8 @@ app.directive('gridPage', ['$window', function($window){
          for(var i=0; i<l; i++){
             scope.contents[i] = tempPicsArray.slice(i*ppp, (i*ppp)+ppp);
          }
-         scope.$parent.$watch('tumblr.gridIndex', function(i){
-            scope.gridIndex = scope.$parent.tumblr.gridIndex;
+         scope.$parent.$watch('tumblr.current.gridIndex', function(i){
+            scope.gridIndex = scope.$parent.tumblr.current.gridIndex;
             scope.contents[i] = tempPicsArray.slice(i*ppp, (i*ppp)+ppp);
          });   
       }

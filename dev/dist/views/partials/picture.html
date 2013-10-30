@@ -1,4 +1,8 @@
-<div class="detail-page-container">
-   <div style="position:absolute; z-index:1000; background:black; color: white; font-size:13px; padding:10px;">detailIndex {{detailIndex}} - SlideIndex {{slideIndex}}</div>
-   PICTURE {{tumblr.pic}}
+<div class="detail-page-container">    
+   <div class="picture-wrapper"  ng-background ="{{thumb}}" background-contain="true">
+      <div class="picture" ng-background ="{{pic}}" background-contain="true">
+         <div class="caption" ng-click="$parent.changeStatus()" ng-bind-html="caption" ng-show="caption"></div>
+         <div class="toggleCaption" ng-click="$parent.changeStatus()" ng-show="caption">CAPTION</div> 
+      </div>
+   </div>
 </div>

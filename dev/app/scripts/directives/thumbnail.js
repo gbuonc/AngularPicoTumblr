@@ -4,11 +4,12 @@
 app.directive('thumbnail', function(){
    return{
       restrict: 'E',   
-      controller: function($scope, $element, $attrs){
+      controller: function($scope, $rootScope, $element, $attrs){
          var tumblr = $scope.$parent.$parent.tumblr;
          $scope.showDetail = function(){
+            $rootScope.pageAnimation = 'scaleUp';
             location.href='#/'+tumblr.id+'/'+$attrs.index;      
-            tumblr.detailIndex =  parseInt($attrs.index, 10);    
+            tumblr.current.detailIndex =  parseInt($attrs.index, 10);    
          }
       },
       link: function(scope, element, attrs){

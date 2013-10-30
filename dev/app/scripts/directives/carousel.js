@@ -11,7 +11,7 @@ app.directive('carousel', ['$window', '$compile', '$timeout', function($window, 
                var totalPages = isGrid ? Math.ceil(totalPics/scope.tumblr.ppp) : totalPics;
                // add current index
                var index = isGrid ? 'gridIndex' : 'detailIndex';
-               scope.tumblr[index] = scope.tumblr[index] || 0;                    
+               scope.tumblr.current[index] = scope.tumblr.current[index] || 0;                    
                var carousel = new SwipeView(element[0], {
                   numberOfPages: totalPages,
                   loop: false,
@@ -19,12 +19,12 @@ app.directive('carousel', ['$window', '$compile', '$timeout', function($window, 
                });               
                carousel.totalSwipes = 0;
                $timeout(function(){
-                  carousel.goToPage(scope.tumblr[index]); 
+                  carousel.goToPage(scope.tumblr.current[index]); 
                }, 0)       
                var firstSlide =  angular.element(carousel.masterPages[0].firstChild);
                var secondSlide = angular.element(carousel.masterPages[1].firstChild);
                var thirdSlide =  angular.element(carousel.masterPages[2].firstChild);
-               if(scope.tumblr[index] == 0) firstSlide.addClass('hidden'); // hide slide before first one (if we start from 0)      
+               if(scope.tumblr.current[index] == 0) firstSlide.addClass('hidden'); // hide slide before first one (if we start from 0)      
                if(totalPages == 1) thirdSlide.addClass('hidden'); // hide slide after first one (if there's one page only )
                
                // render on flip
@@ -50,10 +50,10 @@ app.directive('carousel', ['$window', '$compile', '$timeout', function($window, 
                   }  
                   // update index to scope
                   scope.$apply(function(){
-                     scope.tumblr[index] = carousel.pageIndex;  
-                     if(scope.tumblr.detailIndex){
+                     scope.tumblr.current[index] = carousel.pageIndex;  
+                     if(scope.tumblr.current.detailIndex){
                         //change grid index when coming back from detail
-                        scope.tumblr.gridIndex = Math.floor(scope.tumblr.detailIndex/scope.tumblr.ppp);
+                        scope.tumblr.current.gridIndex = Math.floor(scope.tumblr.current.detailIndex/scope.tumblr.ppp);
                      }                   
                   });	  
 	               // manage out of bounds slides
