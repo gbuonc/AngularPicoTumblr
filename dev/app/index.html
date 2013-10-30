@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>PicoTumblr</title>
+      <meta name="viewport" content="width=device-width, initial-scale = 1.0, user-scalable = no">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="mobile-web-app-capable" content="yes">
+      <meta name="format-detection" content="telephone=no">
+      <!-- build:css assets/css/app.css -->
+      <link rel="stylesheet" href="assets/css/topcoat-mobile-dark.css">  
+      <link rel="stylesheet" href="assets/css/main.css">
+      <link rel="stylesheet" href="assets/css/animations.css"> 
+      <!-- endbuild -->       
+   </head>
+   <body ng-app="picoTumblr" ng-controller="MainCtrl">      
+      <div class="main-app pt-perspective {{pageAnimation}}">      
+         <ng-view class="pt-page"></ng-view>
+         <div class="spinner" ng-spinner="{color:'#fff'}" ng-if="tumblr.isLoading"></div>
+      </div>
+      <!-- <div class="testBar">
+         <a ng-class="{on: currentView=='home'}" href="#/home" page-animation="fromBottom">Route A from bottom</a> |
+         <a ng-class="{on: currentView=='thumbs'}" href="#/" page-animation="fromTop">Route B from top</a> |
+         <a ng-class="{on: currentView=='viewC'}" href="#/" page-animation="fromLeft">Route C from left</a> |
+         <a ng-class="{on: currentView=='home'}" href="#/home" page-animation="fromRight">Route A from right</a> |
+         <a ng-class="{on: currentView=='thumbs'}" href="#/" page-animation="scaleDown">Route B scale down</a> |
+         <a ng-class="{on: currentView=='viewC'}" href="#/" page-animation="scaleUp">Route C scale up</a> |
+         <input type="checkbox" ng-model="tumblr.isLoading" /> {{tumblr.isLoading?'hide':'show'}} Spinner
+      </div> -->         
+      <!-- build:js scripts/app.js -->        
+      <!-- angular modules -->    
+      <script src="scripts/angular/angular-1.2.0.min.js"></script>
+      <script src="scripts/angular/angular-route.min.js"></script>
+      <script src="scripts/angular/angular-animate.min.js"></script>  
+      <script src="scripts/angular/angular-sanitize.min.js"></script> 
+      <script src="scripts/angular/angular-touch.js"></script> 
+      <!-- vendors -->
+      <script src="scripts/vendors/spin.js"></script>     
+      <script src="scripts/vendors/swipeview.js"></script>
+      <script src="scripts/vendors/moment.min.js"></script>     
+      <!-- main app -->   
+      <script src="scripts/app.js"></script>
+      <!-- filters -->
+      <script src="scripts/filters/timeago.js"></script>  
+      <!-- services -->
+      <script src="scripts/services/tumblr.js"></script>
+      <!-- directives -->
+      <script src="scripts/directives/helpers.js"></script> 
+      <script src="scripts/directives/carousel.js"></script>  
+      <script src="scripts/directives/grid.js"></script>
+      <script src="scripts/directives/detail.js"></script>
+      <script src="scripts/directives/thumbnail.js"></script>
+      <!-- endbuild -->    
+   </body>
+</html>

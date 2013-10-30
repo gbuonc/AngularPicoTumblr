@@ -1,0 +1,15 @@
+<div class="pt-page pt-page-b" ng-controller="thumbsCtrl">
+   <!-- header -->
+   <section class="thumbs-header">
+      <h1 class="header-title" ng-bind-html="tumblr.current.title"></h1>         
+      <img ng-src="{{tumblr.current.avatar}}" alt="{{tumblr.current.title}}" class="header-avatar" ng-show="tumblr.current.id">
+      <div class="header-info" ng-show="tumblr.current.id"><strong>Last updated</strong>: {{tumblr.current.updated | timeAgo}}  &nbsp;&nbsp;&nbsp;<strong>totalPictures</strong>: {{tumblr.current.totalPictures}}</div>
+      <div ng-include="'views/includes/searchform.html'"></div>   
+   </section>
+   <!-- grid -->
+   <section class="thumbs-grid">
+      <span ng-repeat="item in tumblr.current.pictures" class="thumb" style="transition-delay: {{random($index) * 300}}ms">
+         <thumbnail ng-background="{{item.thumb}}" index="{{$index}}">{{$index}}</thumbnail>      
+      </span>
+   </section>
+</div>

@@ -1,0 +1,136 @@
+.pt-perspective {
+	-webkit-perspective: 1200px;
+	-moz-perspective: 1200px;
+	perspective: 1200px;
+}
+.thumb.ng-enter{
+  -webkit-transition: 0.5s linear all;
+  -moz-transition: 0.5s linear all;
+  -o-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+  position:relative;
+}
+.thumb.ng-enter{opacity:0}
+.thumb.ng-enter-active{opacity: 1;}
+.ng-leave-active{z-index: -1;}
+
+/*7*/
+.fromBottom .pt-page.ng-enter{
+   -webkit-animation: moveFromBottom .6s ease both;
+	-moz-animation: moveFromBottom .6s ease both;
+	animation: moveFromBottom .6s ease both;
+}
+.fromBottom .pt-page.ng-leave{
+   -webkit-animation: fade .7s ease both;
+	-moz-animation: fade .7s ease both;
+	animation: fade .7s ease both;
+}
+/*8*/
+.fromTop .pt-page.ng-enter{
+   -webkit-animation: moveFromTop .6s ease both;
+	-moz-animation: moveFromTop .6s ease both;
+	animation: moveFromTop .6s ease both;
+}
+.fromTop .pt-page.ng-leave{
+   -webkit-animation: fade .7s ease both;
+	-moz-animation: fade .7s ease both;
+	animation: fade .7s ease both;
+}
+/* 13*/
+.fromRight .pt-page.ng-enter{
+   -webkit-animation: moveFromRight .6s ease both;
+	-moz-animation: moveFromRight .6s ease both;
+	animation: moveFromRight .6s ease both;
+}
+.fromRight .pt-page.ng-leave{
+   -webkit-animation: moveToLeft .7s ease-in-out both;
+	-moz-animation: moveToLeft .7s ease-in-out both;
+	animation: moveToLeft .7s ease-in-out both;
+}
+/* 14*/
+.fromLeft .pt-page.ng-enter{
+   -webkit-animation: moveFromLeft .6s ease both;
+	-moz-animation: moveFromLeft .6s ease both;
+	animation: moveFromLeft .6s ease both;
+
+}
+.fromLeft .pt-page.ng-leave{
+      -webkit-animation: moveToRight .7s ease-in-out both;
+	-moz-animation: moveToRight .7s ease-in-out both;
+	animation: moveToRight .7s ease-in-out both;
+}
+/*21*/
+.scaleDown .pt-page.ng-enter{
+   -webkit-animation: scaleUpDown .5s ease both;
+	-moz-animation: scaleUpDown .5s ease both;
+	animation: scaleUpDown .5s ease both;
+}
+.scaleDown .pt-page.ng-leave{
+   -webkit-animation: scaleDown .7s ease both;
+	-moz-animation: scaleDown .7s ease both;
+	animation: scaleDown .7s ease both;
+   -webkit-animation-delay: .3s;
+   -moz-animation-delay: .3s;
+   animation-delay: .3s;
+}
+/*22*/
+.scaleUp .pt-page.ng-enter{
+   -webkit-animation: scaleUp .7s ease both;
+	-moz-animation: scaleUp .7s ease both;
+	animation: scaleUp .7s ease both;
+}
+.scaleUp .pt-page.ng-leave{
+   -webkit-animation: scaleDownUp .5s ease both;
+	-moz-animation: scaleDownUp .5s ease both;
+	animation: scaleDownUp .5s ease both;   
+   -webkit-animation-delay: .3s;
+   -moz-animation-delay: .3s;
+   animation-delay: .3s;
+}
+
+/* KeyFrames
+====================================================== */
+@-webkit-keyframes moveFromBottom {	from { -webkit-transform: translateY(100%); }}
+@-moz-keyframes moveFromBottom {	from { -moz-transform: translateY(100%); }}
+@keyframes moveFromBottom {	from { transform: translateY(100%); }}
+
+@-webkit-keyframes moveFromTop {	from { -webkit-transform: translateY(-100%); }}
+@-moz-keyframes moveFromTop {	from { -moz-transform: translateY(-100%); }}
+@keyframes moveFromTop {	from { transform: translateY(-100%); }}
+
+@-webkit-keyframes fade {	to { opacity: 0.3; }}
+@-moz-keyframes fade {	to { opacity: 0.3; }}
+@keyframes fade {	to { opacity: 0.3; }}
+
+@-webkit-keyframes moveToLeft {	to { -webkit-transform: translateX(-100%); }}
+@-moz-keyframes moveToLeft {	to { -moz-transform: translateX(-100%); }}
+@keyframes moveToLeft {	to { transform: translateX(-100%); }}
+
+@-webkit-keyframes moveFromLeft {	from { -webkit-transform: translateX(-100%); }}
+@-moz-keyframes moveFromLeft {	from { -moz-transform: translateX(-100%); }}
+@keyframes moveFromLeft {	from { transform: translateX(-100%); }}
+
+@-webkit-keyframes moveToRight { 	to { -webkit-transform: translateX(100%); }}
+@-moz-keyframes moveToRight { 	to { -moz-transform: translateX(100%); }}
+@keyframes moveToRight { 	to { transform: translateX(100%); }}
+
+@-webkit-keyframes moveFromRight {	from { -webkit-transform: translateX(100%); }}
+@-moz-keyframes moveFromRight {	from { -moz-transform: translateX(100%); }}
+@keyframes moveFromRight {	from { transform: translateX(100%); }}
+
+@-webkit-keyframes scaleDown {	to { opacity: 0; -webkit-transform: scale(.8); }}
+@-moz-keyframes scaleDown {	to { opacity: 0; -moz-transform: scale(.8); }}
+@keyframes scaleDown {	to { opacity: 0; transform: scale(.8); }}
+
+@-webkit-keyframes scaleUp {	from { opacity: 0; -webkit-transform: scale(.8); }}
+@-moz-keyframes scaleUp {	from { opacity: 0; -moz-transform: scale(.8); }}
+@keyframes scaleUp {	from { opacity: 0; transform: scale(.8); }}
+
+@-webkit-keyframes scaleUpDown {	from { opacity: 0; -webkit-transform: scale(1.2); }}
+@-moz-keyframes scaleUpDown {	from { opacity: 0; -moz-transform: scale(1.2); }}
+@keyframes scaleUpDown {	from { opacity: 0; transform: scale(1.2); }}
+
+@-webkit-keyframes scaleDownUp {	to { opacity: 0; -webkit-transform: scale(1.2); }}
+@-moz-keyframes scaleDownUp {	to { opacity: 0; -moz-transform: scale(1.2); }}
+@keyframes scaleDownUp {	to { opacity: 0; transform: scale(1.2); }}
+
