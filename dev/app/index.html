@@ -10,6 +10,7 @@
       <meta name="apple-mobile-web-app-capable" content="yes">
       <meta name="mobile-web-app-capable" content="yes">
       <meta name="format-detection" content="telephone=no">
+      <script src="scripts/vendors/pace.js"></script>    
       <!-- build:css assets/css/app.css -->
       <link rel="stylesheet" href="assets/css/topcoat-mobile-dark.css">  
       <link rel="stylesheet" href="assets/css/main.css">
@@ -19,7 +20,7 @@
    <body ng-app="picoTumblr" ng-controller="MainCtrl">      
       <div class="main-app pt-perspective {{pageAnimation}}">      
          <ng-view class="pt-page"></ng-view>
-         <div class="spinner" ng-spinner="{color:'#fff'}" ng-if="tumblr.isLoading"></div>
+         <!-- <div class="spinner" ng-spinner="{color:'#fff'}" ng-if="tumblr.isLoading"></div> -->
       </div>
       <!-- <div class="testBar">
          <a ng-class="{on: currentView=='home'}" href="#/home" page-animation="fromBottom">Route A from bottom</a> |

@@ -30,10 +30,14 @@ app.directive('carousel', ['$window', '$compile', '$timeout', function($window, 
                
                // render on flip
 	            carousel.onFlip(function () { 	
-                  // load more pics when scrolling forward (TODO CHECK)
+                  // load more pics when scrolling forward with buffer
                   if (carousel.direction === 'forward') { 
                      carousel.totalSwipes += 1;
-                     scope.tumblr.getPictures();
+                     var picsLoaded = scope.tumblr.current.pictures.length;                     
+                     var picsViewed = isGrid ? ((scope.tumblr.current.gridIndex * scope.tumblr.ppp)+scope.tumblr.ppp) : scope.tumblr.current.detailIndex;
+                     if(picsLoaded - picsViewed <= 2*scope.tumblr.ppp){
+                        scope.tumblr.getPictures();
+                     }
                   }               
                   var el, i;
                   for (i=0; i<3; i++) {     
